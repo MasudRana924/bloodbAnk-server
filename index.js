@@ -21,6 +21,9 @@ async function run() {
         console.log('database connected')
         const database = client.db('BloodBank')
         const donarsCollection = database.collection('donars')
+        const usersCollection = database.collection('users')
+        const bookingsCollection = database.collection('bookings')
+
         // get donars 
         app.get('/donars', async (req, res) => {
             const cursor = donarsCollection.find({})
@@ -33,6 +36,19 @@ async function run() {
             const result = await donarsCollection.insertOne(donar);
             res.json(result)
         })
+        // users section 
+        app.post('/users', async (req, res) => {
+            const users = req.body;
+            const result = await usersCollection.insertOne(users);
+            res.json(result)
+        })
+        // bookings 
+        app.post('/bookings', async (req, res) => {
+            const bookings = req.body;
+            const result = await bookingsCollection.insertOne(bookings);
+            res.json(result)
+        })
+
        
     }
     finally {
